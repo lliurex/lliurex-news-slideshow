@@ -17,7 +17,7 @@ class AUTOSLIDESHOW():
 		try:
 			
 			file_dir=os.path.dirname(file)
-			file_dir_extras=file_dir+'/extras'
+			file_dir_extras=file_dir+'/modules'
 			if not os.path.exists(file_dir):
 				os.makedirs(file_dir)
 				#print("Directory not exists, generate it...")
@@ -50,6 +50,7 @@ class AUTOSLIDESHOW():
 			self.initialize()
 			if len(dict) > 0:
 				for element in dict:
+					print(element)
 					if 'text' in dict[element]['type']:
 						self.text(dict[element])
 					elif 'image' in dict[element]['type']:
@@ -81,10 +82,10 @@ class AUTOSLIDESHOW():
 	def text(self,element):
 		try:
 			list=[]
-			list.append('		<div class="mySlides mySlides_txt fade" style="background-color: yellow">')
-			list.append('			<p class="author">%s</p>'%element['title'])
-			list.append('			<q>%s</q>'%element['text'])
-			list.append('		</div>')
+			list.append('<div class="mySlides mySlides_txt fade" style="background-color: yellow">'+"\n")
+			list.append('<p class="author">%s</p>'%element['title']+"\n")
+			list.append('<q>%s</q>'%element['text']+"\n")
+			list.append('</div>'+"\n")
 
 			self.write_slideshow(self.file_slideswhow,list)
 
@@ -97,10 +98,10 @@ class AUTOSLIDESHOW():
 		try:
 			list=[]
 			for element in list_images['image']:
-				list.append('		<div class="mySlides fade">')
-				list.append('			<img src="{}" style="width:100%">'.format(element))
-				list.append('			<div class="text_top">%s</div>'%list_images['title'])
-				list.append('		</div>')
+				list.append('<div class="mySlides fade">'+"\n")
+				list.append('<img src="{}" style="width:100%">'.format(element)+"\n")
+				list.append('<div class="text_top">%s</div>'%list_images['title']+"\n")
+				list.append('</div>'+"\n")
 
 			self.write_slideshow(self.file_slideswhow,list)
 		except Exception as e:
@@ -112,12 +113,12 @@ class AUTOSLIDESHOW():
 	def video(self,element):
 		try:
 			list=[]
-			list.append('		<div class="mySlides fade">')
-			list.append('			<video id="video" width="800" height="600" allowfullscreen autoplay muted>')
-			list.append('				<source src="%s" type="video/ogg" />'%element['video'])
-			list.append('				<div class="text_top">%s</div>'%element['title'])
-			list.append('			</video>')
-			list.append('		</div>')
+			list.append('<div class="mySlides fade">+"\n"')
+			list.append('<video id="video" width="800" height="600" allowfullscreen autoplay muted>'+"\n")
+			list.append('<source src="%s" type="video/ogg" />'%element['video']+"\n")
+			list.append('<div class="text_top">%s</div>'%element['title']+"\n")
+			list.append('</video>'+"\n")
+			list.append('</div>'+"\n")
 
 			self.write_slideshow(self.file_slideswhow,list)
 		except Exception as e:
@@ -128,8 +129,11 @@ class AUTOSLIDESHOW():
 	def youtube(self,element):
 		try:
 			list=[]
-			list.append('		<div id="player"></div>')
-
+			print(1111111111)
+			list.append('<div id="player" class="mySlides fade"></div>'+"\n")
+			print(22222222)
+			self.write_slideshow(self.file_slideswhow,list)
+			print(333333333)
 			self.write_slideshow_youtube(self.file_slideswhow,element)
 		except Exception as e:
 			print("[AUTOSLIDESHOW](iframe)Error: %s"%e)
@@ -138,10 +142,10 @@ class AUTOSLIDESHOW():
 	def iframe(self,element):
 		try:
 			list=[]
-			list.append('		<div class="mySlides fade">')
-			list.append('			%s'%element['iframe'])
-			list.append('			<div class="text_top">%s</div>'%element['title'])
-			list.append('		</div>')
+			list.append('<div class="mySlides fade">'+"\n")
+			list.append('%s'%element['iframe']+"\n")
+			list.append('<div class="text_top">%s</div>'%element['title']+"\n")
+			list.append('</div>+"\n"')
 
 			self.write_slideshow(self.file_slideswhow,list)
 		except Exception as e:
@@ -170,6 +174,7 @@ class AUTOSLIDESHOW():
 
 	def write_slideshow (self,file,list):
 		try:
+			print (4444444)
 			inputfile = open(file,'rt',encoding='utf-8').readlines()
 			write_file = open(file,'w',encoding='utf-8')
 			for line in inputfile:
@@ -186,11 +191,12 @@ class AUTOSLIDESHOW():
 	
 	def write_slideshow_youtube(self,file,element):
 		try:
+			print(555555)
 			inputfile = open(file,'rt',encoding='utf-8').readlines()
 			write_file = open(file,'w',encoding='utf-8')
 			for line in inputfile:
 				if 'onYouTubeIframeAPIReady()' in line:
-					write_file.write("var player;")
+					write_file.write("var player;\n")
 					write_file.write(line)
 					write_file.write("player = new YT.Player('player', {")
 					write_file.write("height: '%s',"%element['height'])

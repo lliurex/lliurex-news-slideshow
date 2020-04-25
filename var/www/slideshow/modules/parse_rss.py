@@ -14,6 +14,7 @@ class RSS:
 	news_dict={}
 	debug = True
 	server="10.3.0.254"
+	#server="192.178.1.77"
 
 	def dprint (self,msg=''):
 		try:
@@ -37,24 +38,14 @@ class RSS:
 
 			try:
 				urllib.request.urlretrieve(url,rss_decoded)
+				del self.file_list[:]
+				self.news_dict.clear()
 				with open(rss_decoded,'rt',encoding='utf-8') as f:
 					if 'rss' in f.read():
 						self.file_list.append(rss_decoded)
 
 			except Exception as e:
 				print("[RSS](list_rss_file)Can't get RSS from URL: %s"%e)
-			if directory is not None:
-				if os.path.isfile(rss_decoded):
-					os.remove(rss_decoded)
-				if os.path.isdir(directory):
-					for file in os.listdir(directory):
-						#print("testing...%s"%file)
-						file=os.path.join(directory, file)
-						if os.path.isfile(file):
-							self.rss_file_true(file)
-				else:
-					if os.path.isfile(directory):
-						self.rss_file_true(file)
 
 			self.dprint("[RSS](rss_file_true) List RSS files: %s"%self.file_list)
 			self.parse_rss_list(self.file_list)
