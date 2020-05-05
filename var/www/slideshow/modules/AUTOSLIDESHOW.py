@@ -50,7 +50,6 @@ class AUTOSLIDESHOW():
 			self.initialize()
 			if len(dict) > 0:
 				for element in dict:
-					print(element)
 					if 'text' in dict[element]['type']:
 						self.text(dict[element])
 					elif 'image' in dict[element]['type']:
@@ -113,7 +112,7 @@ class AUTOSLIDESHOW():
 	def video(self,element):
 		try:
 			list=[]
-			list.append('<div class="mySlides fade">+"\n"')
+			list.append('<div class="mySlides fade">'+"\n")
 			list.append('<video id="video" width="800" height="600" allowfullscreen autoplay muted>'+"\n")
 			list.append('<source src="%s" type="video/ogg" />'%element['video']+"\n")
 			list.append('<div class="text_top">%s</div>'%element['title']+"\n")
@@ -129,11 +128,12 @@ class AUTOSLIDESHOW():
 	def youtube(self,element):
 		try:
 			list=[]
-			print(1111111111)
-			list.append('<div id="player" class="mySlides fade"></div>'+"\n")
-			print(22222222)
+			list.append('<div class="mySlides fade YouTube">'+"\n")
+			#element['id']='F1JADuAhUqA'
+			player='player'+element['id']
+			list.append('<iframe id="%s" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/%s?enablejsapi=1" frameborder="0"></iframe>'%(player,element['id'])+"\n")
+			list.append('</div>'+"\n")
 			self.write_slideshow(self.file_slideswhow,list)
-			print(333333333)
 			self.write_slideshow_youtube(self.file_slideswhow,element)
 		except Exception as e:
 			print("[AUTOSLIDESHOW](iframe)Error: %s"%e)
@@ -174,7 +174,6 @@ class AUTOSLIDESHOW():
 
 	def write_slideshow (self,file,list):
 		try:
-			print (4444444)
 			inputfile = open(file,'rt',encoding='utf-8').readlines()
 			write_file = open(file,'w',encoding='utf-8')
 			for line in inputfile:
@@ -191,21 +190,30 @@ class AUTOSLIDESHOW():
 	
 	def write_slideshow_youtube(self,file,element):
 		try:
-			print(555555)
 			inputfile = open(file,'rt',encoding='utf-8').readlines()
 			write_file = open(file,'w',encoding='utf-8')
+			player='player'+element['id']
 			for line in inputfile:
 				if 'onYouTubeIframeAPIReady()' in line:
-					write_file.write("var player;\n")
+					write_file.write("var %s;"%player+"\n")
 					write_file.write(line)
-					write_file.write("player = new YT.Player('player', {")
-					write_file.write("height: '%s',"%element['height'])
-					write_file.write("width: '%s',"%element['width'])
-					write_file.write("videoId: '%s',"%element['id'])
-					write_file.write("events: {")
-					write_file.write("'onStateChange': function(env){ if (env.data == 0) {alert ('Hola Dani')}; }")
-					write_file.write("}")
-					write_file.write("});")
+					write_file.write("%s = new YT.Player('%s', {"%(player,player)+"\n")
+					#write_file.write("height: '%s',"%element['height'])
+					#write_file.write("width: '%s',"%element['width'])
+					#write_file.write("videoId: '%s',"%element['id'])
+					#write_file.write("playerVars:{ 'autoplay': 1, 'mute': 1, 'controls':0, 'rel': 0, 'showinfo': 0 },")
+					write_file.write("events: {"+"\n")
+					write_file.write("'onStateChange': function(env){ if (env.data == 0) {setTimeout(showSlides, 10)}; }"+"\n")
+					#write_file.write("'onStateChange': function(env){ if (env.data == 0) {alert ('Hola Dani')}; }")
+					write_file.write("}"+"\n")
+					write_file.write("});"+"\n")
+				elif 'It is a Youtube video...' in line:
+					write_file.write(line)
+					#write_file.write("if ( iframe_youtube.id = %s ){"%element['id']+"\n")
+					write_file.write("if (( iframe_youtube.id == '%s' )){"%player+"\n")
+					write_file.write("%s.mute();"%player+"\n")
+					write_file.write("%s.playVideo();"%player+"\n")
+					write_file.write("};"+"\n")
 				else:
 					write_file.write(line)
 			write_file.close()

@@ -13,13 +13,28 @@
   <script>
     var slideIndex = 0;
     var hasvideo = 0;
-    showSlides();
+
+    var tag = document.createElement('script');
+    tag.id = 'iframe-demo';
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      
+      function onYouTubeIframeAPIReady() {
+      }
 
     function event() {
      console.log("event listener")
     }
 
+    showSlides();
+
     function showSlides() {
+      console.log('Dentro Slide....');
+      console.log('SlideIndex='+slideIndex);
       var i;
       var slides = document.getElementsByClassName("mySlides");
       for (i = 0; i < slides.length; i++) {
@@ -30,32 +45,29 @@
         slideIndex = 1
       }
       slides[slideIndex-1].style.display = "block";
-      
-      videos = slides[slideIndex-1].getElementsByTagName("video");
-      if (videos.length > 0) {
+
+      //youtube_videos = slides[slideIndex-1].classList.contains("YouTube");
+      if (slides[slideIndex-1].classList.contains("YouTube")) {
+        iframe_youtube=slides[slideIndex-1].getElementsByTagName("iframe")[0];
+        console.log(iframe_youtube);
+        console.log(iframe_youtube.id);
+        console.log('It is a Youtube video...');
+      }
+
+
+      //videos = slides[slideIndex-1].getElementsByTagName("video");
+      else if (slides[slideIndex-1].getElementsByTagName("video").length > 0) {
+        videos = slides[slideIndex-1].getElementsByTagName("video");
+        console.log('It is a Local video...');
         videos[0].play();
         videos[0].onended = function(){
           setTimeout(showSlides, 500);
         };
       }
       else {
-        setTimeout(showSlides, 5000); // Change image every 2 seconds
+        setTimeout(showSlides, 2000); // Change image every 2 seconds
       }
-    }
-    
-    // YouTube Videos Iframe Player API code asynchronously
-    var tag = document.createElement('script');
-    
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    
-     function onYouTubeIframeAPIReady() {
-    
-    }
-    
-   
-    
+    } 
 
 </script>
 
