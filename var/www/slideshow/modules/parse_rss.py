@@ -4,6 +4,7 @@ feedparser._HTMLSanitizer.acceptable_elements.update(['iframe'])
 import urllib.request
 import webbrowser
 import tempfile
+import subprocess
 from modules.AUTOSLIDESHOW import AUTOSLIDESHOW
 
 from bs4 import BeautifulSoup
@@ -13,12 +14,13 @@ class RSS:
 	file_list=[]
 	news_dict={}
 	debug = True
-	server="10.3.0.254"
+	server=subprocess.check_output('n4d-client -m get_variable -c VariablesManager -a SRV_IP', shell=True, encoding='UTF-8').strip()
+	#server="10.3.0.254"
 	#server="192.178.1.77"
 
 	def dprint (self,msg=''):
 		try:
-			debug = True
+			debug = False
 			if debug:
 				print ("%s"%msg)
 

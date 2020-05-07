@@ -33,8 +33,8 @@
     showSlides();
 
     function showSlides() {
-      console.log('Dentro Slide....');
-      console.log('SlideIndex='+slideIndex);
+      //console.log('Dentro Slide....');
+      //console.log('SlideIndex='+slideIndex);
       var i;
       var slides = document.getElementsByClassName("mySlides");
       for (i = 0; i < slides.length; i++) {
@@ -49,16 +49,16 @@
       //youtube_videos = slides[slideIndex-1].classList.contains("YouTube");
       if (slides[slideIndex-1].classList.contains("YouTube")) {
         iframe_youtube=slides[slideIndex-1].getElementsByTagName("iframe")[0];
-        console.log(iframe_youtube);
-        console.log(iframe_youtube.id);
-        console.log('It is a Youtube video...');
+       // console.log(iframe_youtube);
+       // console.log(iframe_youtube.id);
+       // console.log('It is a Youtube video...');
       }
 
 
       //videos = slides[slideIndex-1].getElementsByTagName("video");
       else if (slides[slideIndex-1].getElementsByTagName("video").length > 0) {
         videos = slides[slideIndex-1].getElementsByTagName("video");
-        console.log('It is a Local video...');
+        //console.log('It is a Local video...');
         videos[0].play();
         videos[0].onended = function(){
           setTimeout(showSlides, 500);
