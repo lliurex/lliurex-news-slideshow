@@ -2,12 +2,9 @@
 import os
 import shutil
 import tempfile
-#from jinja2 import Environment
-#from jinja2.loaders import FileSystemLoader
 
 class AUTOSLIDESHOW():
 
-	#file_slideswhow="/www/var/slideshow/carrusel/kiosco_slideshow.html"
 	file_slideswhow=tempfile.NamedTemporaryFile().name
 	install_dir='/var/www/slideshow/modules/'
 	template=install_dir+"slideshow_template.html"
@@ -60,6 +57,8 @@ class AUTOSLIDESHOW():
 						self.iframe(dict[element])
 					elif 'youtube' in dict[element]['type']:
 						self.youtube(dict[element])
+					elif 'html' in dict[element]['type']:
+						self.html(dict[element])
 			else:
 				dict={}
 				dict[0]={}
@@ -92,6 +91,20 @@ class AUTOSLIDESHOW():
 			print("[AUTOSLIDESHOW](text)Error: %s"%e)
 	#def text
 
+	def html(self,element):
+		try:
+			list=[]
+			list.append('<div class="mySlides mySlides_txt fade">'+"\n")
+			list.append('<p class="author">%s</p>'%element['title']+"\n")
+			list.append('%s'%element['text']+"\n")
+			list.append('</div>'+"\n")
+
+			self.write_slideshow(self.file_slideswhow,list)
+
+		except Exception as e:
+			print("[AUTOSLIDESHOW](html)Error: %s"%e)
+	#def html
+
 
 	def image(self,list_images):
 		try:
@@ -114,8 +127,8 @@ class AUTOSLIDESHOW():
 			list=[]
 			list.append('<div class="mySlides fade">'+"\n")
 			list.append('<video id="video" width="800" height="600" allowfullscreen autoplay muted>'+"\n")
+			list.append('<div class="author">%s</div>'%element['title']+"\n")
 			list.append('<source src="%s" type="video/ogg" />'%element['video']+"\n")
-			list.append('<div class="text_top">%s</div>'%element['title']+"\n")
 			list.append('</video>'+"\n")
 			list.append('</div>'+"\n")
 
@@ -131,7 +144,8 @@ class AUTOSLIDESHOW():
 			list.append('<div class="mySlides fade YouTube">'+"\n")
 			#element['id']='F1JADuAhUqA'
 			player='player'+element['id']
-			list.append('<iframe id="%s" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/%s?enablejsapi=1" frameborder="0"></iframe>'%(player,element['id'])+"\n")
+			list.append('<iframe id="%s" type="text/html" width="1280" height="720" src="http://www.youtube.com/embed/%s?enablejsapi=1" frameborder="0"></iframe>'%(player,element['id'])+"\n")
+			list.append('<div class="author">%s</div>'%element['title']+"\n")
 			list.append('</div>'+"\n")
 			self.write_slideshow(self.file_slideswhow,list)
 			self.write_slideshow_youtube(self.file_slideswhow,element)
@@ -211,7 +225,8 @@ class AUTOSLIDESHOW():
 					write_file.write(line)
 					#write_file.write("if ( iframe_youtube.id = %s ){"%element['id']+"\n")
 					write_file.write("if (( iframe_youtube.id == '%s' )){"%player+"\n")
-					write_file.write("%s.mute();"%player+"\n")
+					#write_file.write("%s.mute();"%player+"\n")
+					write_file.write("%s.setVolume(100);"%player+"\n")
 					write_file.write("%s.playVideo();"%player+"\n")
 					write_file.write("};"+"\n")
 				else:

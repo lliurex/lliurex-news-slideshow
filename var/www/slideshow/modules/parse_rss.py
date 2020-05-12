@@ -1,6 +1,9 @@
 import os
 import feedparser
 feedparser._HTMLSanitizer.acceptable_elements.update(['iframe'])
+feedparser._HTMLSanitizer.acceptable_elements.update(['html'])
+feedparser._HTMLSanitizer.acceptable_elements.update(['head'])
+feedparser._HTMLSanitizer.acceptable_elements.update(['title'])
 import urllib.request
 import webbrowser
 import tempfile
@@ -20,7 +23,7 @@ class RSS:
 
 	def dprint (self,msg=''):
 		try:
-			debug = False
+			debug = True
 			if debug:
 				print ("%s"%msg)
 
@@ -179,18 +182,34 @@ class RSS:
 				element[entry_element]['title']=article_title
 				element[entry_element]['type']="None"
 
-				#Twitter is a text in rss news
-				for item in soup.find_all("p"):
-					try:
-						if soup.find_all("p") :
-							element[entry_element]['text']='%s'%(item.text.strip())
-							element[entry_element]['type']='text'
-							self.dprint ("Notice Text: {}".format(item.text.strip()))
-						else:
-							element[entry_element]['text']='Not detected'
-							self.dprint ("Notice Text: Not detected")
-					except Exception as e:
-						print("[RSS](parse_rss_file)(Class Beautiful)Error: %s"%e)
+				html=False
+				for item in soup:
+					if 'kg-card-begin: html' in item or 'kg-card-begin: markdown' in item:
+						html=True
+						break
+				if html:
+					element[entry_element]['text']=''
+					for item in soup:
+						if 'kg-card-begin: html' not in item and 'kg-card-end: html' not in item and 'kg-card-begin: markdown' not in item and 'kg-card-end: markdown' not in item:
+							try:
+								element[entry_element]['text']=element[entry_element]['text']+'%s'%(item)
+							except Exception as e:
+								print("[RSS](parse_rss_file)(Class Beautiful)Error: %s"%e)
+					element[entry_element]['type']='html'
+					self.dprint ("Notice HTML: {}".format(element[entry_element]['text']))	
+				else:
+					#Twitter is a text in rss news
+					for item in soup.find_all("p"):
+						try:
+							if soup.find_all("p") :
+								element[entry_element]['text']='%s'%(item.text.strip())
+								element[entry_element]['type']='text'
+								self.dprint ("Notice Text: {}".format(item.text.strip()))
+							else:
+								element[entry_element]['text']='Not detected'
+								self.dprint ("Notice Text: Not detected")
+						except Exception as e:
+							print("[RSS](parse_rss_file)(Class Beautiful)Error: %s"%e)
 				
 				# two checks are necessary to confirm or not type
 				if soup.find_all("video"):
