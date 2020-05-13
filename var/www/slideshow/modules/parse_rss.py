@@ -1,9 +1,9 @@
 import os
 import feedparser
 feedparser._HTMLSanitizer.acceptable_elements.update(['iframe'])
-feedparser._HTMLSanitizer.acceptable_elements.update(['html'])
-feedparser._HTMLSanitizer.acceptable_elements.update(['head'])
-feedparser._HTMLSanitizer.acceptable_elements.update(['title'])
+#feedparser._HTMLSanitizer.acceptable_elements.update(['html'])
+#feedparser._HTMLSanitizer.acceptable_elements.update(['head'])
+#feedparser._HTMLSanitizer.acceptable_elements.update(['title'])
 import urllib.request
 import webbrowser
 import tempfile
