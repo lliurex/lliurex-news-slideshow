@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% if title %}
+        <title>{{ title }} - Admin</title>
+        {% else %}
+        <title>Admin</title>
+        {% endif %}
+        <link rel="stylesheet" href="/static/style/main.css">
+        <script src="/static/js/utils.js"></script>
+    </head>
+    <body>
+        <div id="grid-nav">
+        <div id="nav">
+            <ul>
+                <li class="home">
+                    <a href="{{ url_for('index') }}">Admin</a>
+                </li>
+                <li {% if request.path == url_for('carrusel') %}class="active"{%endif%}>
+                    <a href="{{ url_for('carrusel') }}">{{_("Slideshow")}}</a>
+                </li>
+                <li {% if request.path == url_for('webserver') %}class="active"{%endif%}>
+                    <a href="{{ url_for('webserver')}}">{{ _('Web server')}}</a>
+                </li>
+                <li class="login_menu">
+                    {% if current_user.is_authenticated %}
+                    <img src="{{ current_user.username }}" alt="">
+                    <a class="" href="{{ url_for('logout') }}">{{ _('Logout') }}</a>              
+                    {% else %}
+                    <a class="" href="{{ url_for('login') }}">{{ _('Login') }}</a>
+                    {% endif%}
+                </li>
+                
+            
+            </ul>
+        </div>
+        <div id="content">
+            <div id="notification">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <script>
+        list_range = document.querySelectorAll("input[type=range]");
+        for(range_input of list_range){
+                range_input.addEventListener("mousemove",colorize_range);
+                colorize_range.call(range_input);
+            }
+    </script>
+    </body>
+</html>
