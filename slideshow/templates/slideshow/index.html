@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include "slideshow/css.tmpl" %}
+</head>
+<body>
+
+  <div class="slideshow-container">
+        {% for element in list_slides %}
+            {% if element.type == 'html' %}
+                {% include 'slideshow/html.html' %}
+            {% elif element.type == 'iframe' %}
+                {% include 'slideshow/iframe.html' %}
+            {% elif element.type == 'imagen' %}
+                {% include 'slideshow/imagen.html' %}
+            {% elif element.type == 'text' %}
+                {% include 'slideshow/text.html' %}
+            {% elif element.type == 'video' %}
+                {% include 'slideshow/video.html' %}
+            {% elif element.type == 'youtube' %}
+                {% include 'slideshow/youtube.html' %}
+            {% endif%}
+        {% endfor%}
+  </div>
+
+
+  <script>
+    var slideIndex = 0;
+    var hasvideo = 0;
+
+    var tag = document.createElement('script');
+    tag.id = 'iframe-demo';
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      {% for youtube_video in youtube_list %}
+      var player{{youtube_video.id}};
+      {% endfor %}
+
+      function onYouTubeIframeAPIReady() {
+        {% for youtube_video in youtube_list %}
+
+            player{{youtube_video.id}} = new YT.Player('player{{youtube_video.id}}', {
+                events:{
+                    'onStateChange': function(env){ if (env.data == 0) {setTimeout(showSlides, 10)}; }
+                }
+            });					
+
+        {% endfor %}
+      }
+
+    showSlides();
+
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length){
+        slideIndex = 1
+      }
+      slides[slideIndex-1].style.display = "block";
+
+      if (slides[slideIndex-1].classList.contains("YouTube")) {
+        iframe_youtube=slides[slideIndex-1].getElementsByTagName("iframe")[0];
+        
+        {% for youtube_video in youtube_list %}
+        if (( iframe_youtube.id == 'player{{youtube_video.id}}' )){
+            player{{youtube_video.id}}.setVolume(100);
+            player{{youtube_video.id}}.playVideo();
+        }
+        {% endfor %}
+
+      }
+
+      else if (slides[slideIndex-1].getElementsByTagName("video").length > 0) {
+        videos = slides[slideIndex-1].getElementsByTagName("video");
+        videos[0].play();
+        videos[0].onended = function(){
+          setTimeout(showSlides, 500);
+        };
+      }
+      else {
+        setTimeout(showSlides, 2000); // Change image every 2 seconds
+      }
+    } 
+
+</script>
+
+</body>
+</html> 
