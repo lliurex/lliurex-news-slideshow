@@ -2,12 +2,14 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% include "slideshow/css.tmpl" %}
+  <style>
+    {% include "slideshow/css.tmpl" %}
+  </style>
 </head>
 <body>
 
   <div class="slideshow-container">
-        {% for element in list_slides %}
+        {% for key,element in list_slides.items() %}
             {% if element.type == 'html' %}
                 {% include 'slideshow/html.html' %}
             {% elif element.type == 'iframe' %}

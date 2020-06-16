@@ -103,7 +103,7 @@ News Item Number: {length}
 			entry_element=0
 			element={}
 			for entry in feed_entries:
-				dprint("\n\nNEWS ITEM {entry_numbre}".format(entry_number=entry_element+1))
+				dprint("\n\nNEWS ITEM {entry_number}".format(entry_number=entry_element+1))
 				dprint(entry)
 				dprint("------------------------------")
 				article_subtitle = entry.subtitle if 'subtitle' in entry else "None"

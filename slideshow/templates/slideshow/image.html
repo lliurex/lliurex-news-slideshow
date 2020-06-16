@@ -1,4 +1,6 @@
+{% for image in element.image %}
 <div class="mySlides fade">
-    <img src="{{ element }}" style="width:100%">
-    <div class="text_top">{{ list_images.title }}</div>
+    <img src="{{ image }}" style="width:100%">
+    <div class="text_top">{{ element.title }}</div>
 </div>
+{% endfor %}
