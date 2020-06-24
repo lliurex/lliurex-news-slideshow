@@ -1,3 +1,9 @@
+lliurex-news-slideshow (0.2) bionic; urgency=medium
+
+  * Install admin page
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 24 Jun 2020 23:27:54 +0200
+
 lliurex-news-slideshow (0.1.2) bionic; urgency=medium
 
   * Rollback on asign default values
