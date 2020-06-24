@@ -273,6 +273,6 @@ Description: {0.description}
 			
 		except Exception as e:
 			print("[RSS](__init__)Error: %s"%e)
-			return []
+			return {}
 
 	#def get_entries

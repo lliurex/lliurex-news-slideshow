@@ -10,7 +10,7 @@ def carrusel_render():
 	list_slides = myrss.get_entries()
 
 	if len(list_slides) < 1:
-		list_slides.insert(0,{})
+		list_slides[0] = {}
 		list_slides[0]['title']='No news detected'
 		list_slides[0]['type']='text'
 		list_slides[0]['text']="Please review your RSS file. Actually we can't find it or it's empty"
