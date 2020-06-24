@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script>
+        function update_label(timeout,id){
+            document.querySelector(id).value = timeout;
+        }
+    </script>
+    <h1>{{ _('Slideshow')}}</h1>
+    <form action="" method="post" enctype="multipart/form-data" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="row">
+            {{ form.slide_timeout.label }}
+            {{ form.slide_timeout(min=0, max=120,step=5, oninput="update_label(value,'#timeout_display')", value=form.slide_timeout.data) }}
+            <output id="timeout_display" for="slide_timeout">{{ form.slide_timeout.data }} s</output>
+        </div>
+        <div class="row">
+            {{ form.transition.label }}
+            {{ form.transition() }}
+        </div>
+        <div class="row">
+            {{ form.background_color.label }}
+            {{ form.background_color() }}
+            
+        </div>
+        <div class="row">
+            {{ form.background_image.label }}
+            {{ form.background_image() }}
+        </div>
+        <div class="row">
+            {{ form.title_size.label }}
+            {{ form.title_size(min=8, max=32, oninput="update_label(value,'#title_size_display')", value=form.title_size.data) }}
+            <output id="title_size_display" for="title_size">{{ form.title_size.data }} pt</output>
+        </div>
+        <div class="row">
+            {{ form.description_size.label }}
+            {{ form.description_size(min=8, max=18, oninput="update_label(value,'#description_size_display')", value=form.description_size.data) }}
+            <output id="description_size_display" for="description_size">{{ form.description_size.data }} pt</output>
+        </div>
+        <div class="row">{{ form.fullscreen() }} {{ form.fullscreen.label }}</div>
+        <div class="row actionform">{{ form.submit() }}</div>
+    </form>
+{% endblock %}
