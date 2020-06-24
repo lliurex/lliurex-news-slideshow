@@ -1,3 +1,10 @@
+lliurex-news-slideshow (0.1.2) bionic; urgency=medium
+
+  * Rollback on asign default values
+  * Return dict inside list
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 24 Jun 2020 16:12:18 +0200
+
 lliurex-news-slideshow (0.1.1) bionic; urgency=medium
 
   * Fix wrong code when there aren't rss
