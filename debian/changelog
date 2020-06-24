@@ -1,0 +1,11 @@
+lliurex-news-slideshow (0.1.1) bionic; urgency=medium
+
+  * Fix wrong code when there aren't rss
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 24 Jun 2020 16:05:36 +0200
+
+lliurex-news-slideshow (0.1) bionic; urgency=medium
+
+  * Initial Release.
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 23 Jun 2020 14:06:34 +0200
