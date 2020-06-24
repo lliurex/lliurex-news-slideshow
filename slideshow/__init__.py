@@ -20,7 +20,7 @@ def carrusel_render():
 	config = {'slide_timeout':10}
 	if os.path.exists('/etc/lliurex-news/slideshow.conf'):
 		with open('/etc/lliurex-news/slideshow.conf','r') as fd:
-            config = json_load(fd)
+			config = json_load(fd)
 
 	youtube_list = [ list_slides[slide] for slide in list_slides if list_slides[slide]['type'] == 'youtube' ]
 	return render_template('slideshow/index.html', list_slides=list_slides, youtube_list=youtube_list, config=config)
