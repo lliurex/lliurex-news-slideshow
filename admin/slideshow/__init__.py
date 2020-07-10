@@ -10,6 +10,9 @@ from ainur.utils import validate_groups
 
 exportmodule = Blueprint('admin_slideshowmodule', __name__,template_folder='templates')
 
+ROUTES_PERMISSIONS = {'slideshow': ['teachers','admins'] }
+MENU = {'link':'admin_slideshowmodule.slideshow','permissions':ROUTES_PERMISSIONS['slideshow'],'name':{'default':'Slideshow'}}
+
 @exportmodule.route('/', methods=['GET', 'POST'])
 @validate_groups(['teachers','admins'])
 @login_required
