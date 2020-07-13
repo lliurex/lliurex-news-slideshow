@@ -3,7 +3,7 @@ from ainur.modules.slideshow.parse_rss import RSS
 from json import load as json_load
 import os
 
-exportmodule = Blueprint('slideshow', __name__, template_folder='templates')
+exportmodule = Blueprint('slideshow', __name__, template_folder='templates', static_folder='static')
 myrss = RSS()
 
 @exportmodule.route('/')
