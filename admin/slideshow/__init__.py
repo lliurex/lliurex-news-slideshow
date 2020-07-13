@@ -7,8 +7,9 @@ from flask_babel import lazy_gettext as _l
 
 from ainur.adminmodules.slideshow.forms import SlideshowSettingsForm
 from ainur.utils import validate_groups
+from ainur.modules.main import get_menu_list
 
-exportmodule = Blueprint('admin_slideshowmodule', __name__,template_folder='templates')
+exportmodule = Blueprint('admin_slideshowmodule', __name__,template_folder='templates',static_folder='static')
 
 ROUTES_PERMISSIONS = {'slideshow': ['teachers','admins'] }
 MENU = {'link':'admin_slideshowmodule.slideshow','permissions':ROUTES_PERMISSIONS['slideshow'],'name':{'default':'Slideshow'}}
@@ -38,4 +39,4 @@ def slideshow():
                     form = SlideshowSettingsForm(**obj)
             except :
                 pass
-    return render_template('admin/slideshow/slideshow_admin.html', title='admin slideshow',form=form)
+    return render_template('admin/slideshow/slideshow_admin.html', title='admin slideshow',list_menu=get_menu_list('admin_slideshowmodule.slideshow'),form=form)
