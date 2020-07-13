@@ -1,6 +1,13 @@
-{% extends "base.html" %}
+{% extends "admin/main/main.html" %}
 
-{% block content %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('admin_slideshowmodule.static',filename='style/admin.css')}}">
+{% endblock %}
+
+{% block logohead %}{{ url_for('slideshow.static', filename='images/logo.jpg')}}{% endblock %}
+
+{% block maincontent %}
     <script>
         function update_label(timeout,id){
             document.querySelector(id).value = timeout;
@@ -9,35 +16,55 @@
     <h1>{{ _('Slideshow')}}</h1>
     <form action="" method="post" enctype="multipart/form-data" novalidate>
         {{ form.hidden_tag() }}
-        <div class="row">
-            {{ form.slide_timeout.label }}
-            {{ form.slide_timeout(min=0, max=120,step=5, oninput="update_label(value,'#timeout_display')", value=form.slide_timeout.data) }}
-            <output id="timeout_display" for="slide_timeout">{{ form.slide_timeout.data }} s</output>
-        </div>
-        <div class="row">
-            {{ form.transition.label }}
-            {{ form.transition() }}
-        </div>
-        <div class="row">
-            {{ form.background_color.label }}
-            {{ form.background_color() }}
+        
+            {{ form.slide_timeout.label(class='firstcolumn')}}
+            <div class="secondcolumn">
+                {{ form.slide_timeout(min=0, max=120,step=5, oninput="update_label(value,'#timeout_display')", value=form.slide_timeout.data) }}
+                <output id="timeout_display" for="slide_timeout">{{ form.slide_timeout.data }} s</output>
+            </div>
+        
+        
+            {{ form.transition.label(class='firstcolumn') }}
+            <div class="secondcolumn">
+                {{ form.transition() }}
+
+            </div>
+        
+
+            {{ form.background_color.label(class='firstcolumn') }}
+            <div class="secondcolumn">
+
+                {{ form.background_color() }}
+            </div>
             
-        </div>
-        <div class="row">
-            {{ form.background_image.label }}
-            {{ form.background_image() }}
-        </div>
-        <div class="row">
-            {{ form.title_size.label }}
-            {{ form.title_size(min=8, max=32, oninput="update_label(value,'#title_size_display')", value=form.title_size.data) }}
-            <output id="title_size_display" for="title_size">{{ form.title_size.data }} pt</output>
-        </div>
-        <div class="row">
-            {{ form.description_size.label }}
-            {{ form.description_size(min=8, max=18, oninput="update_label(value,'#description_size_display')", value=form.description_size.data) }}
-            <output id="description_size_display" for="description_size">{{ form.description_size.data }} pt</output>
-        </div>
-        <div class="row">{{ form.fullscreen() }} {{ form.fullscreen.label }}</div>
-        <div class="row actionform">{{ form.submit() }}</div>
+        
+        
+            {{ form.background_image.label(class='firstcolumn') }}
+            <div class="secondcolumn">
+
+                {{ form.background_image() }}
+            </div>
+        
+        
+            {{ form.title_size.label(class='firstcolumn') }}
+            <div class="secondcolumn">
+                {{ form.title_size(min=8, max=32, oninput="update_label(value,'#title_size_display')", value=form.title_size.data) }}
+                <output id="title_size_display" for="title_size">{{ form.title_size.data }} pt</output>
+
+            </div>
+        
+        
+            {{ form.description_size.label(class='firstcolumn') }}
+            <div class="secondcolumn">
+                {{ form.description_size(min=8, max=18, oninput="update_label(value,'#description_size_display')", value=form.description_size.data) }}
+                <output id="description_size_display" for="description_size">{{ form.description_size.data }} pt</output>
+
+            </div>
+            
+            <div class="secondcolumn">
+                {{ form.fullscreen() }} {{ form.fullscreen.label }}
+
+            </div>
+        <div class="secondcolumn actionform">{{ form.submit() }}</div>
     </form>
 {% endblock %}
