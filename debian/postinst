@@ -22,6 +22,8 @@ case "$1" in
     configure)
 	    # Restart wsgi ainur service
 	    touch -c /usr/share/ainur/ainur.wsgi
+	    chown www-data:www-data /etc/lliurex-news
+	    chown www-data:www-data /var/lib/lliurex-news
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
