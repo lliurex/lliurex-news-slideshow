@@ -1,6 +1,6 @@
-<div class="mySlides mySlides_txt fade" style="background-color: yellow">
-    <p class="author">{{ element.title }}</p>
+<div class="mySlides mySlides_txt">
+    <div class="title">{{ element.title }}</div>
     {% autoescape off %}
-    <q>{{ element.text }}</q>
+    <div class="txtcontent">{{ element.text }}</div>
     {% endautoescape %}
 </div>

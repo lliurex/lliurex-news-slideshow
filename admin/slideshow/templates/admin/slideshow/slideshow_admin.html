@@ -15,6 +15,9 @@
     </script>
     <h1>{{ _('Slideshow')}}</h1>
     <form action="" method="post" enctype="multipart/form-data" novalidate>
+
+        
+
         {{ form.hidden_tag() }}
         
             {{ form.slide_timeout.label(class='firstcolumn')}}
@@ -29,40 +32,34 @@
                 {{ form.transition() }}
 
             </div>
-        
-
-            {{ form.background_color.label(class='firstcolumn') }}
-            <div class="secondcolumn">
-
-                {{ form.background_color() }}
-            </div>
             
-        
-        
-            {{ form.background_image.label(class='firstcolumn') }}
-            <div class="secondcolumn">
 
+            <label for="" class="firstcolumn">{{ _('Background')}}</label>
+            {% for x in form.background_selected %}
+            <div class="secondcolumn">
+                {{ x() }}
+                <label for="">{{ x.label }}</label>
+                {% if x.data == 'solid' %}
+                    {{ form.background_color() }}
+                {% else %}
                 {{ form.background_image() }}
+                {% endif %}
             </div>
+            {% endfor %}
         
         
             {{ form.title_size.label(class='firstcolumn') }}
             <div class="secondcolumn">
-                {{ form.title_size(min=8, max=32, oninput="update_label(value,'#title_size_display')", value=form.title_size.data) }}
-                <output id="title_size_display" for="title_size">{{ form.title_size.data }} pt</output>
+                {{ form.title_size(min=30, max=120, oninput="update_label(value,'#title_size_display')", value=form.title_size.data) }}
+                <output id="title_size_display" for="title_size">{{ form.title_size.data }}</output><span>pt</span>
 
             </div>
         
         
             {{ form.description_size.label(class='firstcolumn') }}
             <div class="secondcolumn">
-                {{ form.description_size(min=8, max=18, oninput="update_label(value,'#description_size_display')", value=form.description_size.data) }}
-                <output id="description_size_display" for="description_size">{{ form.description_size.data }} pt</output>
-
-            </div>
-            
-            <div class="secondcolumn">
-                {{ form.fullscreen() }} {{ form.fullscreen.label }}
+                {{ form.description_size(min=20, max=80, oninput="update_label(value,'#description_size_display')", value=form.description_size.data) }}
+                <output id="description_size_display" for="description_size">{{ form.description_size.data }}</output><span>pt</span>
 
             </div>
         <div class="secondcolumn actionform">{{ form.submit() }}</div>
