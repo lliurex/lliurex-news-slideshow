@@ -7,8 +7,6 @@
   </style>
 </head>
 <body>
-
-  <div class="slideshow-container">
         {% for key,element in list_slides.items() %}
             {% if element.type == 'html' %}
                 {% include 'slideshow/html.html' %}
@@ -24,8 +22,6 @@
                 {% include 'slideshow/youtube.html' %}
             {% endif%}
         {% endfor%}
-  </div>
-
 
   <script>
     var slideIndex = 0;
@@ -61,13 +57,15 @@
       var i;
       var slides = document.getElementsByClassName("mySlides");
       for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        if ( !slides[i].classList.contains('hidden')){
+          slides[i].classList.add('hidden');
+        }
       }
       slideIndex++;
       if (slideIndex > slides.length){
         slideIndex = 1
       }
-      slides[slideIndex-1].style.display = "block";
+      slides[slideIndex-1].classList.remove("hidden");
 
       if (slides[slideIndex-1].classList.contains("YouTube")) {
         iframe_youtube=slides[slideIndex-1].getElementsByTagName("iframe")[0];
@@ -86,9 +84,11 @@
         videos[0].play();
         videos[0].onended = function(){
           setTimeout(showSlides, 500);
+          
         };
       }
       else {
+        
         setTimeout(showSlides, {{ config.slide_timeout }} * 1000 ); // Change image every 2 seconds
       }
     } 

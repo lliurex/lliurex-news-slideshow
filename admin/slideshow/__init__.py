@@ -7,8 +7,11 @@ from flask_babel import lazy_gettext as _l
 
 from ainur.adminmodules.slideshow.forms import SlideshowSettingsForm
 from ainur.utils import validate_groups
+from ainur.modules.main import get_menu_list
+from ainur import app
 
-exportmodule = Blueprint('admin_slideshowmodule', __name__,template_folder='templates')
+
+exportmodule = Blueprint('admin_slideshowmodule', __name__,template_folder='templates',static_folder='static')
 
 ROUTES_PERMISSIONS = {'slideshow': ['teachers','admins'] }
 MENU = {'link':'admin_slideshowmodule.slideshow','permissions':ROUTES_PERMISSIONS['slideshow'],'name':{'default':'Slideshow'}}
@@ -23,7 +26,7 @@ def slideshow():
             flash(_l('Config saved'))
             if form.background_image.data != None:
                 f = form.background_image.data
-                f.save(os.path.join(app.instance_path,'rsrc','slideshow_background'))
+                f.save(os.path.join('/var/lib/lliurex-news','slideshow_background.png'))
             with open('/etc/lliurex-news/slideshow.conf','w') as fd:
                 config = form.data
                 config.pop('background_image')
@@ -38,4 +41,5 @@ def slideshow():
                     form = SlideshowSettingsForm(**obj)
             except :
                 pass
-    return render_template('admin/slideshow/slideshow_admin.html', title='admin slideshow',form=form)
+    return render_template('admin/slideshow/slideshow_admin.html', title='admin slideshow',list_menu=get_menu_list('admin_slideshowmodule.slideshow'),form=form)
+
