@@ -1,3 +1,9 @@
+lliurex-news-slideshow (0.4.2) bionic; urgency=medium
+
+  * Set news colors for text slides
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 17 Jul 2020 09:00:08 +0200
+
 lliurex-news-slideshow (0.4.1) bionic; urgency=medium
 
   * Add utf-8 on head
