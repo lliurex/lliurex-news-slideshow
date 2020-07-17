@@ -9,6 +9,8 @@ body{
   background-image: url("{{ url_for('slideshow.background_image')}}")
   {% else %}
   background-color: {{ config.background_color }};
+  background-repeat: no-repeat;
+  background-size: cover;
   {% endif %}
 }
 
@@ -26,11 +28,13 @@ body{
 
 .mySlides .title{
   font-size: {{config.title_size}}pt;
+  color: #1b7e98;
 }
 
 .mySlides .txtcontent{
   margin-top: 1em;
   font-size: {{config.description_size}}pt;
+  color: #333;
 }
 
 .mySlides img, .mySlides video{
