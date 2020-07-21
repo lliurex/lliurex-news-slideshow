@@ -17,7 +17,7 @@ def carrusel_render():
 		list_slides[0]['type']='text'
 		list_slides[0]['text']="Please review your RSS file. Actually we can't find it or it's empty"
 
-	config = {'slide_timeout':10, 'background_color':'#6eb9d0','title_size':75,'description_size':50,'background_selected':'solid'}
+	config = {'slide_timeout':10, 'background_color':'#6eb9d0','title_size':75,'description_size':50,'background_selected':'solid', "transition":"fade"}
 	if os.path.exists('/etc/lliurex-news/slideshow.conf'):
 		with open('/etc/lliurex-news/slideshow.conf','r') as fd:
 			config = json_load(fd)
