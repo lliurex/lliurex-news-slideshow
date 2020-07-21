@@ -16,6 +16,8 @@ body{
 
 .mySlides{
   margin: 2em 0;
+  position: relative;
+  animation: {{ config.transition }} 2s;
 }
 
 .mySlides.mySlides_txt{
@@ -56,4 +58,34 @@ body{
   left: 50%;
   background-color: rgba(255,255,255,0.8);
   padding: 0.2em;
+}
+
+
+/*
+  Animations
+*/
+
+@keyframes fade{
+    0%{opacity:0}
+  100%{opacity:1}
+}
+
+@keyframes pushtop{
+  0%{top: -100vh;opacity:0;}
+100%{top: 0;opacity:1;}
+}
+
+@keyframes pushbottom{
+  0%{top: 100vh;opacity:0;}
+100%{top: 0;opacity:1;}
+}
+
+@keyframes pushleft{
+  0%{left: -100vw;opacity:0;}
+100%{left: 0;opacity:1;}
+}
+
+@keyframes pushright{
+  0%{left: 100vw;opacity:0;}
+100%{left: 0;opacity:1;}
 }
