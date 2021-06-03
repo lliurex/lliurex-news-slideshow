@@ -1,0 +1,15 @@
+Source: lliurex-news-slideshow
+Section: admin
+Priority: optional
+Maintainer: LliureX Team <lliurex@gva.es>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.1.2
+Homepage: http://lliurex.net
+#Vcs-Git: https://anonscm.debian.org/git/collab-maint/lliurex-news-slideshow.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lliurex-news-slideshow.git
+
+Package: lliurex-news-slideshow
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ainur
+Description: slideshow lliurex service 
+ Enable on ainur slideshow service.

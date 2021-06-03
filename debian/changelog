@@ -1,0 +1,60 @@
+lliurex-news-slideshow (0.5) focal; urgency=medium
+
+  * First version to focal.
+
+ -- Daniel Duran <daduve@gmail.com>  Thu, 03 Jun 2021 09:55:01 +0200
+
+lliurex-news-slideshow (0.5) bionic; urgency=medium
+
+  * Add transitions
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 21 Jul 2020 13:05:37 +0200
+
+lliurex-news-slideshow (0.4.2) bionic; urgency=medium
+
+  * Set news colors for text slides
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 17 Jul 2020 09:00:08 +0200
+
+lliurex-news-slideshow (0.4.1) bionic; urgency=medium
+
+  * Add utf-8 on head
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 15 Jul 2020 23:08:17 +0200
+
+lliurex-news-slideshow (0.4) bionic; urgency=medium
+
+  * Fists stable version
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 15 Jul 2020 13:18:50 +0200
+
+lliurex-news-slideshow (0.3) bionic; urgency=medium
+
+  * Add menu entry
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 10 Jul 2020 17:19:08 +0200
+
+lliurex-news-slideshow (0.2) bionic; urgency=medium
+
+  * Install admin page
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 24 Jun 2020 23:27:54 +0200
+
+lliurex-news-slideshow (0.1.2) bionic; urgency=medium
+
+  * Rollback on asign default values
+  * Return dict inside list
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 24 Jun 2020 16:12:18 +0200
+
+lliurex-news-slideshow (0.1.1) bionic; urgency=medium
+
+  * Fix wrong code when there aren't rss
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 24 Jun 2020 16:05:36 +0200
+
+lliurex-news-slideshow (0.1) bionic; urgency=medium
+
+  * Initial Release.
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 23 Jun 2020 14:06:34 +0200
